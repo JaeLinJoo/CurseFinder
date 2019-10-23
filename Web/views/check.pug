@@ -27,6 +27,11 @@ html
                         input(type="hidden", value=result[i].id, name="id")
         br
         table(align="right", style="width:15%")
-                 tr    
+                tr    
                     td(style="padding:30px")
                         input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='center', value="삭제")
+    table(align="right", style="width:15%;margin:80px")
+        tr
+            td
+                form(method="post", action='/toLogin')
+                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="로그아웃")

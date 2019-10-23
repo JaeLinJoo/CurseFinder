@@ -14,7 +14,7 @@ var express = require('express')
         connectionLimit: 10,
         host: "localhost",
         user: "root",
-        password: "0428",
+        password: "jell0217", /*자신의 mysql pw로 변경시키기*/
         database: "db_kfc"
     });
     var A = 0;
@@ -91,6 +91,13 @@ var express = require('express')
         delete req.session.user_upwd;
         delete req.session.user_uid;
         res.redirect('/');
+    });
+
+    app.post('/toMain',function(req,res){
+        var sql0 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
+        con.query(sql0, function(err, result1, fields) {
+                            res.render('main',{"result":result1});
+        });
     });
 
     app.post('/sentdel',function(req,res){

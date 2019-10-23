@@ -26,6 +26,15 @@
             background-color: cornflowerblue;
             background-position: 100% 20px;
         }
+    h1{
+            width:60%;
+            height: 70px;
+            text-align: center;
+            padding-top: 10px;
+            background-color: bisque;
+            background-position: 70% 10px;
+            background-blend-mode: darken;
+        }
     </style>
 </head>
 <body>
@@ -33,17 +42,26 @@
     <p>JipJung Community</p>
     </div>
     <br>
-    <h1 style="text-align:center;padding-left: 30px">글 작성</h1>
+    <form action="/toMain" accept-charset="utf-8" method="post">
+        <table align="right" style="width:25%">
+            <td >
+            <input type="submit" value="메인" style = "font-size:16px;padding:5px;padding-left:10px;padding-right:10px">
+            </td>
+            
+        </table>
+    </form>
+    <br>
+    <h1 >글 작성</h1>
     <form action="write" accept-charset="utf-8" method="post">
         <br>
         <table align="Center">
             <tr>
-                <td><textarea  rows="30", cols="100" id="msg" name="msg" 
+                <td><textarea  rows="30", cols="150" id="msg" name="msg" 
                               placeholder="글을 작성하세요. (비속어가 있을 경우 글은 게시되지 않을 수 있습니다)" 
                               style = "font-size:16px;padding:5px;resize: none;"></textarea></td>
                 <td><br><br></td>
             </tr>
-            <td align="right"><input type="submit" value="게시" style = "font-size:16px;padding:5px"></td>
+            <td align="right"><input type="submit" value="게시" style = "font-size:16px;padding:5px;margin:20px;padding-left:10px;padding-right:10px "></td>
         </table>
     </form>
 </body>

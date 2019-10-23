@@ -23,9 +23,6 @@ html
         tr
             td
                 form(method="post", action='/toWrite')
-                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 200px;", valign='right', value="글쓰기")
+                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 300px;", valign='right', value="글쓰기")
                 form(method="post", action='/toLogin')
                     input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="로그아웃")
-    script(type = "text/javascript").
-        function write() location.href = "/write"
-        function login() location.href = "/login"
