@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>>CurseFinder_prototype</title>
+    <script>
+    var d = new Date();
+    </script>
+    <style>
+        p{
+            color:floralwhite;
+            font-size: 50px;
+            font-family: fantasy;
+            font-weight: 300;
+            text-align : center;
+            padding-right: 30px;
+            text-shadow: 3px 3px 3px black;
+        }
+        div {
+        width: 100%;
+        height: 200px;
+        border: 3px solid #bcbcbc;
+      }
+    .a{
+            /*background-image:url('../img/bg_img.png') ;*/
+            background-color: cornflowerblue;
+            background-position: 100% 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="a">
+    <p>JipJung Community</p>
+    </div>
+    <br>
+    <h1 style="text-align:center;padding-left: 30px">글 작성</h1>
+    <form action="write" accept-charset="utf-8" method="post">
+        <br>
+        <table align="Center">
+            <tr>
+                <td><textarea  rows="30", cols="100" id="msg" name="msg" 
+                              placeholder="글을 작성하세요. (비속어가 있을 경우 글은 게시되지 않을 수 있습니다)" 
+                              style = "font-size:16px;padding:5px;resize: none;"></textarea></td>
+                <td><br><br></td>
+            </tr>
+            <td align="right"><input type="submit" value="게시" style = "font-size:16px;padding:5px"></td>
+        </table>
+    </form>
+</body>
+</html>
