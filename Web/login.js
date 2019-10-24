@@ -14,7 +14,7 @@ var express = require('express')
         connectionLimit: 10,
         host: "localhost",
         user: "root",
-        password: "jell0217", /*자신의 mysql pw로 변경시키기*/
+        password: "789521",
         database: "db_kfc"
     });
     var A = 0;
@@ -46,8 +46,8 @@ var express = require('express')
             else {
                 var sql = 'SELECT Id FROM IdPwd WHERE Id = "'+body.uid+'"';
                 var sql0 = 'SELECT id, curedsent FROM Cured WHERE sentid = "DB"';
-                var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
                 var sql2 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
+                var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
                 var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
                 req.session.user_uid = body.uid
                 con.query(sql, function(err, result, fields) {
@@ -87,17 +87,44 @@ var express = require('express')
         res.render('write.html');
     });
 
+    app.post('/toMain',function(req,res){
+
+        if((req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB"))){
+            var sql0 = 'SELECT id, curedsent FROM Cured WHERE sentid = "DB"';
+            con.query(sql0, function(err, result1, fields) {
+                res.render('main',{"result":result1});
+            });
+        }
+            else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+            var sql2 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
+            con.query(sql2, function(err, result12, fields) {
+                res.render('main',{"result":result12});
+            });
+        }
+    });
+
+
     app.post('/toLogin', function(req,res){
         delete req.session.user_upwd;
         delete req.session.user_uid;
         res.redirect('/');
     });
 
-    app.post('/toMain',function(req,res){
-        var sql0 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
-        con.query(sql0, function(err, result1, fields) {
-                            res.render('main',{"result":result1});
-        });
+    app.get('/sentdeled',function(req,res){
+        
+        if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
+            var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
+
+            con.query(sql1, function(err, result0, fields) {
+                res.render('check',{"result":result0});
+            });
+        }
+        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+            var sql0 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+            con.query(sql0, function(err, result1, fields) {
+                res.render('check',{"result":result1});
+            });
+        }
     });
 
     app.post('/sentdel',function(req,res){
@@ -122,22 +149,24 @@ var express = require('express')
                 }
             }
         }
+        res.redirect('/sentdeled')
         
-        if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
-            var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
-
-            con.query(sql1, function(err, result0, fields) {
-                res.render('check',{"result":result0});
-            });
-        }
-        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
-            var sql0 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
-            con.query(sql0, function(err, result1, fields) {
-                res.render('check',{"result":result1});
-            });
-        }
     })
 
+    app.get('/writedone', function(req, res) {
+        if((req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB"))){
+        var sql0 = 'SELECT id, curedsent FROM Cured WHERE sentid = "DB"';
+        con.query(sql0, function(err, result1, fields) {
+            res.render('main',{"result":result1});
+        });
+    }
+        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+        var sql2 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
+        con.query(sql2, function(err, result12, fields) {
+            res.render('main',{"result":result12});
+        });
+    }
+    });
 
     app.post('/write', function(req,res){
         const body=req.body;
@@ -162,9 +191,9 @@ var express = require('express')
                             var sql2 = 'INSERT INTO Cured(sentid,curedsent) VALUES("DB","'+req.body.msg+'")'
                             con.query(sql2, function(err, result, fields) {});
                         }
-    
+                        res.redirect('/writedone')
                     });
-                    res.render('write.html');
+                    
                 }
                 else if(req.session.user_uid.includes("Leven") || req.session.user_uid.includes("leven")){
                     var sql = 'SELECT * FROM CurseWord'
@@ -190,7 +219,10 @@ var express = require('express')
                                 var sql4 = 'INSERT INTO Cured(sentid,curedsent) VALUES("Leven","'+req.body.msg+'")'
                                 con.query(sql4, function(err, result, fields) {});
                             }
-                            res.render('write.html');
+
+
+                            
+                            res.redirect('/writedone')
                         });
 
                     });
