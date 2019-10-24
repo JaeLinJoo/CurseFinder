@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,14 +31,81 @@
             background-position: 100% 20px;
         }
     h1{
-            width:60%;
-            height: 70px;
-            text-align: center;
-            padding-top: 10px;
-            background-color: bisque;
+            /*width:60%;
+            height: 50px;
+            
+            
+            background-color: rgb(149, 186, 255);
+            background-position: 70% 10px;
+            background-blend-mode: darken;*/
+            height: 50px;
+            width: 60%;
+            background: rgb(190, 213, 255); /* default button background color */
+            display: inline-block; /* set to block or inline-block */
+            padding: 10px 15px;
+            margin: 10px; /* for demo layout */
+            font: normal 16px 'Lato', sans-serif;  /* use google custom font "Lato" */
+            border-radius: 18px;
+            position: relative;
+            outline: none;
+            text-decoration: none;
+            color: black;
             background-position: 70% 10px;
             background-blend-mode: darken;
+            text-align: center;padding-top: 10px;
         }
+
+        .dualcolorbutton{
+        /*border: 1px solid navy;*/
+        height: 50px;
+        width: 200px;
+        background: white; /* default button background color */
+        display: inline-block; /* set to block or inline-block */
+        padding: 10px 15px;
+        margin: 10px; /* for demo layout */
+        font: normal 16px 'Lato', sans-serif;  /* use google custom font "Lato" */
+        border-radius: 18px;
+        cursor: pointer;
+        position: relative;
+        outline: none;
+        text-decoration: none;
+        color: black;
+        overflow: hidden;
+        /*overflow bug in Chrome fix: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera */
+        z-index: 100;
+        transition: all .5s;
+    }
+    
+    .dualcolorbutton > span{
+      position: relative;
+      display: block;
+      z-index: 100;
+    }
+    
+    .dualcolorbutton:before{
+      position: absolute;
+      content: '';
+      height: 100%;
+      width: 100%;
+      background: cornflowerblue; /* left slanted panel background color */
+      top: 0;
+      left: 0;
+      -webkit-transform: skew(-10deg) translate3d(-103%,0,0);
+      transform: skew(-10deg) translate3d(-103%,0,0); /* tuck away slanted panel beyond left edge of button */
+      border-right: 1px solid rgb(50, 98, 187);
+      transition: all .5s;
+    }
+    
+    .dualcolorbutton:hover{
+        color: white;
+        background: cornflowerblue; /* button background color onhover */
+    }
+    
+    .dualcolorbutton:hover:before{
+      -webkit-transform: skew(-10deg) translate3d(-50%,0,0);
+      transform: skew(-10deg) translate3d(-50%,0,0); /* move slanted panel to middle of panel */
+    }
+    
     </style>
 </head>
 <body>
@@ -45,7 +116,11 @@
     <form action="/toMain" accept-charset="utf-8" method="post">
         <table align="right" style="width:25%">
             <td >
-            <input type="submit" value="메인" style = "font-size:16px;padding:5px;padding-left:10px;padding-right:10px">
+            <input
+            class="dualcolorbutton"
+            type="submit" 
+            value="메인으로" 
+            style = "font-size:16px;padding:5px;padding-left:10px;padding-right:10px;font-family:hanna;">
             </td>
             
         </table>
@@ -61,7 +136,13 @@
                               style = "font-size:16px;padding:5px;resize: none;"></textarea></td>
                 <td><br><br></td>
             </tr>
-            <td align="right"><input type="submit" value="게시" style = "font-size:16px;padding:5px;margin:20px;padding-left:10px;padding-right:10px "></td>
+            <td align="right">
+                <input
+                class="dualcolorbutton" 
+                type="submit" 
+                value="올리기" 
+                style = "font-size:16px;padding:5px;margin:20px;padding-left:10px;padding-right:10px;font-family:hanna;">
+            </td>
         </table>
     </form>
 </body>
