@@ -27,7 +27,7 @@ html
                         td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].sentid}
                         td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result1[i].detecsent}
                         input(type="hidden", value=result1[i].id, name="id")
-                        input(type="hidden", value=0, name="istherecurse")
+                        input(type="hidden", value=1, name="istherecurse")
         
                 -for(i in result2)
                     tr(style="border:1px solid;border-collapse:collapse")  
@@ -39,7 +39,7 @@ html
                         td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].sentid}
                         td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result2[i].curedsent}
                         input(type="hidden", value=result2[i].id, name="id")
-                        input(type="hidden", value=1, name="istherecurse")
+                        input(type="hidden", value=0, name="istherecurse")
                         
         br
         table(align="right", style="width:15%")

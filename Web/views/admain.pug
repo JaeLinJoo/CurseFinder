@@ -10,13 +10,18 @@ html
     br
     table(align="center", style="width:80%;border:3px solid;border-collapse:collapse")
         tr(style="border:1px solid;border-collapse:collapse")
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 내보내기
             th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 욕 존재유무
             th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") ID
             th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  판단 방법
             th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  글 목록
         ul
+        form(method="post", action='/droptheS')
             -for(i in result1)
-                tr(style="border:1px solid;border-collapse:collapse")  
+                tr(style="border:1px solid;border-collapse:collapse")
+                    td(style="text-align:center") 
+                        input(id='checkinfo', type='checkbox', value=1, name='testName')
+                        input(id='checkvalue', type='hidden', value=0, name='testName')
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 O
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].id}
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].sentid}
@@ -24,13 +29,18 @@ html
                     input(type="hidden", value=result1[i].id, name="id")
         
             -for(i in result2)
-                tr(style="border:1px solid;border-collapse:collapse")  
+                tr(style="border:1px solid;border-collapse:collapse")
+                    td(style="text-align:center") X                    
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 X
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].id}
                     td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].sentid}
                     td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result2[i].curedsent}
                     input(type="hidden", value=result2[i].id, name="id")
-    
+            
+            table(align="right", style="width:15%;margin:35px")
+                tr
+                    td(style="padding:30px")
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="내보내기")
 
         table(align="right", style="width:15%")
                 tr    
@@ -38,7 +48,7 @@ html
                     br
                     form(method="post", action='/toCheck')
                         input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="관리자 전용")
-    table(align="right", style="width:15%;margin:50px")
+    table(align="right", style="width:15%;margin:90px")
         tr
             td  
                 form(method="post", action='/toLogin')

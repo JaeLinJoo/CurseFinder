@@ -14,7 +14,7 @@ var express = require('express')
         connectionLimit: 10,
         host: "localhost",
         user: "root",
-        password: "jell0217",
+        password: "789521",
         database: "db_kfc"
     });
     var A = 0;
@@ -139,6 +139,27 @@ var express = require('express')
         }
     });
 
+    app.get('/toAMain', function(req,res){
+        var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
+        var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+        var sql4 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "DB"';
+        var sql5 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "Leven"';
+        if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
+            con.query(sql1, function(err, result0, fields) {
+                con.query(sql4, function(err, result1, fields) {
+                    res.render('admain',{"result1":result0,"result2":result1});
+                });
+            });
+        }
+        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+            con.query(sql3, function(err, result2, fields) {
+                con.query(sql5, function(err, result3, fields) {
+                    res.render('admain',{"result1":result2,"result2":result3});
+                });
+            });
+        }
+    });
+
 
 
     app.post('/toCheck', function(req,res){
@@ -184,6 +205,62 @@ var express = require('express')
         }
     });
 
+    
+    app.post('/droptheS',function(req,res){
+        var sql="";
+        console.log(typeof(req.body.id));
+        console.log(req.body.id);
+        console.log(req.body.testName);
+        if(typeof(req.body.id)=="string"){
+            if(req.body.testName[0]==1){
+                var sql3 = 'SELECT sentid, detecsent FROM Cursed WHERE id = '+req.body.id+'';
+                con.query(sql3, function(err, result2, fields) {
+                    var sql5 = 'INSERT INTO Cured(sentid,curedsent) VALUES("'+result2[0].sentid+'","'+result2[0].detecsent+'")'
+                    con.query(sql5, function(err, result3, fields) {
+                        console.log("메시지 내보내기 완료");
+                        var sql7 = 'DELETE FROM Cursed WHERE id = '+req.body.id+'';
+                        con.query(sql7, function(err, result4, fields) {
+                            
+                        });
+                    
+                    });
+                });
+            }
+        }
+        else{
+            x=0;
+            var del = [];
+            for(var i=0 ; i< req.body.testName.length; i++){
+                if(req.body.testName[i]==1){
+                    console.log(req.body.id[i-x])
+                    var sql3 = 'SELECT sentid, detecsent FROM Cursed WHERE id = '+req.body.id[i-x]+'';
+                    del.push(req.body.id[i-x]);
+                    con.query(sql3, function(err, result2, fields){
+                        console.log(result2[0])
+                        var sql5 = 'INSERT INTO Cured(sentid,curedsent) VALUES("'+result2[0].sentid+'","'+result2[0].detecsent+'")'
+                        con.query(sql5, function(err, result3, fields) {
+                            console.log("메시지 내보내기 완료");
+                            console.log(del)
+                            for(var j=0;j<del.length;j++){
+                            sql = "DELETE FROM Cursed WHERE id= "+del[j]+";";
+                            
+                            console.log(sql);
+                            con.query(sql, function(err, result, fields){
+                            console.log("메시지 삭제완료");
+                            });
+                            }
+                        });
+                    });
+                x += 1;
+                }
+            }
+            
+        }
+        
+        res.redirect('/toAMain')
+    })
+
+
     app.post('/sentdel',function(req,res){
         var sql="";
         console.log(typeof(req.body.id));
@@ -191,14 +268,14 @@ var express = require('express')
         console.log(req.body.testName);
         if(typeof(req.body.id)=="string"){
             if(req.body.testName[0]==1){
-                if(req.body.istherecurse[0]==1){
+                if(req.body.istherecurse[0]==0){
                 sql = "DELETE FROM Cured WHERE id= "+req.body.id+";";
                 console.log(sql);
                 con.query(sql, function(err, result, fields){
                 console.log("메시지 삭제완료");
                 });
             }
-                else if(req.body.istherecurse[0]==0){
+                else if(req.body.istherecurse[0]==1){
                 sql = "DELETE FROM Cursed WHERE id= "+req.body.id+";";
                 console.log(sql);
                 con.query(sql, function(err, result, fields){
@@ -211,7 +288,7 @@ var express = require('express')
             v=0;
             for(var i=0 ; i< req.body.testName.length; i++){
                 if(req.body.testName[i]==1){
-                    if(req.body.istherecurse[i]==1){
+                    if(req.body.istherecurse[i-v]==0){
                     sql = "DELETE FROM Cured WHERE id= "+req.body.id[i-v]+";";
                     v += 1;
                     console.log(sql);
@@ -219,7 +296,7 @@ var express = require('express')
                     console.log("메시지 삭제완료");
                 });
             }
-                else if(req.body.istherecurse[i]==0){
+                else if(req.body.istherecurse[i-v]==1){
                     sql = "DELETE FROM Cursed WHERE id= "+req.body.id[i-v]+";";
                     v += 1;
                     console.log(sql);
