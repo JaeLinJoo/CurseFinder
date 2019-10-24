@@ -17,7 +17,7 @@ var express = require('express')
         password: "789521",
         database: "db_kfc"
     });
-    
+    var A = 0;
 
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
@@ -36,7 +36,6 @@ var express = require('express')
     });
     
 
-    global.count=0;
 
 
     app.post('/login', function(req,res){
@@ -133,21 +132,27 @@ var express = require('express')
         console.log(req.body.id);
         console.log(req.body.testName);
         if(typeof(req.body.id)=="string"){
-            if(req.body.testName[0]==1)
-                sql+="DELETE FROM Cursed WHERE id= '"+req.body.id+"';";
+            if(req.body.testName[0]==1){
+                sql = "DELETE FROM Cursed WHERE id= "+req.body.id+";";
+                console.log(sql);
+                con.query(sql, function(err, result, fields){
+                console.log("메시지 삭제완료");
+                });
+            }
         }
         else{
             v=0;
             for(var i=0 ; i< req.body.testName.length; i++){
                 if(req.body.testName[i]==1){
-                    sql="DELETE FROM Cursed WHERE id= '"+req.body.id[i-v]+"';";
+                    sql = "DELETE FROM Cursed WHERE id= "+req.body.id[i-v]+";";
                     v += 1;
                     console.log(sql);
                     con.query(sql, function(err, result, fields) {
                     console.log("메시지 삭제완료");
-        });
+                });
                 }
             }
+            
         }
         res.redirect('/sentdeled')
         
