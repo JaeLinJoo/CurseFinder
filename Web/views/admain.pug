@@ -1,20 +1,23 @@
 html
   head
     link( rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    link( href="https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap" rel="stylesheet")
+    link( href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet")
+    link( href="https://fonts.googleapis.com/css?family=Fjalla+One|Rubik&display=swap" rel="stylesheet")
+    link( rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
   body
     br
-    div(style="background-color:cornflowerblue;background-position: 100% 20px;width: 100%;height: 150px;border: 3px solid #bcbcbc;")
-        p(style=" color:floralwhite;font-size: 50px;font-family: fantasy;font-weight: 300;text-align : center;padding-right: 30px;text-shadow: 3px 3px 3px black;") JipJung Community
-    br
-    h1(style="font-family:fantasy;font-size:30px;padding-left:50px") [ Admin Page ]
+    div(style="background-color:rgb(255, 179, 151);background-image: linear-gradient(115deg, transparent 75%, rgb(255, 208, 191) 75%), linear-gradient(245deg, transparent 75%, rgb(255, 208, 191) 75%),linear-gradient(115deg, transparent 75%,  rgb(255, 208, 191) 75%), linear-gradient(245deg, transparent 75%, rgb(255, 208, 191) 75%);background-position: 0 0, 0 0, 10px -20px, 10px -20px;background-size: 20px 40px;height:100px")
+        p(style="color:floralwhite;font-size: 50px;font-family:'Shadows Into Light';font-weight: 300;text-align : center;padding-right: 30px;text-shadow: 3px 3px 3px black;margin:30px;padding-top:10px") JipJung Community
+    h1(style="font-family:'Fjalla One';font-size:30px;padding-left:200px;padding-top:50px") [ Admin Page ]
     br
     table(align="center", style="width:80%;border:3px solid;border-collapse:collapse")
         tr(style="border:1px solid;border-collapse:collapse")
-            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 내보내기
-            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 욕 존재유무
-            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") ID
-            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  판단 방법
-            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  글 목록
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:rgb(255, 179, 151)") 내보내기
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:rgb(255, 179, 151)") 욕 존재유무
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:rgb(255, 179, 151)") ID
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:rgb(255, 179, 151)")  판단 방법
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:rgb(255, 179, 151)")  글 목록
         ul
         form(method="post", action='/droptheS')
             -for(i in result1)
@@ -37,19 +40,14 @@ html
                     td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result2[i].curedsent}
                     input(type="hidden", value=result2[i].id, name="id")
             
-            table(align="right", style="width:15%;margin:35px")
-                tr
-                    td(style="padding:30px")
-                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="내보내기")
-
-        table(align="right", style="width:15%")
-                tr    
-                    td(style="padding:30px")
-                    br
+        table(align="right", style="width:15%;")
+            tr
+                td(style="padding:30px")
+                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%;background-color:rgb(255, 156, 121);font-family:'Fjalla One'; font-size:20px;padding:6px;position: absolute; right:560px;", valign='right', value="Export")
+   
+                td(style="padding:30px")
                     form(method="post", action='/toCheck')
-                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="관리자 전용")
-    table(align="right", style="width:15%;margin:90px")
-        tr
-            td  
-                form(method="post", action='/toLogin')
-                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="로그아웃")
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:200px;font-family:'Fjalla One'; font-size:20px;background-color:rgb(255, 156, 121);padding:6px;position: absolute; right: 350px;", valign='right', value="Admin Manage")
+                td(style="padding:30px")  
+                    form(method="post", action='/toLogin')
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%;font-family:'Fjalla One'; font-size:20px;background-color:rgb(255, 156, 121);padding:6px;position: absolute; right: 170px;", valign='right', value="Login")
