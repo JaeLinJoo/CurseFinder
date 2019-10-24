@@ -1,0 +1,45 @@
+html
+  head
+    link( rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+  body
+    br
+    div(style="background-color:cornflowerblue;background-position: 100% 20px;width: 100%;height: 150px;border: 3px solid #bcbcbc;")
+        p(style=" color:floralwhite;font-size: 50px;font-family: fantasy;font-weight: 300;text-align : center;padding-right: 30px;text-shadow: 3px 3px 3px black;") JipJung Community
+    br
+    h1(style="font-family:fantasy;font-size:30px;padding-left:50px") [ Admin Page ]
+    
+    table(align="center", style="width:80%;border:3px solid;border-collapse:collapse")
+        tr(style="border:1px solid;border-collapse:collapse")
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 욕 존재유무
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") ID
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  판단 방법
+            th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  글 목록
+        ul
+            -for(i in result1)
+                tr(style="border:1px solid;border-collapse:collapse")  
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 O
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].id}
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].sentid}
+                    td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result1[i].detecsent}
+                    input(type="hidden", value=result1[i].id, name="id")
+        
+            -for(i in result2)
+                tr(style="border:1px solid;border-collapse:collapse")  
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 X
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].id}
+                    td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].sentid}
+                    td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result2[i].curedsent}
+                    input(type="hidden", value=result2[i].id, name="id")
+    
+
+
+        table(align="right", style="width:15%")
+                tr    
+                    td(style="padding:30px")
+                    form(method="post", action='/toCheck')
+                        input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="관리자 전용")
+    table(align="right", style="width:15%;margin:80px")
+        tr
+            td  
+                form(method="post", action='/toLogin')
+                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="로그아웃")
