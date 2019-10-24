@@ -48,11 +48,15 @@ var express = require('express')
                 var sql2 = 'SELECT id, curedsent FROM Cured WHERE sentid = "Leven"';
                 var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
                 var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+                var sql4 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "DB"';
+                var sql5 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "Leven"';
                 req.session.user_uid = body.uid
                 con.query(sql, function(err, result, fields) {
                     if(result[0].Id=="DBAdmin"){
                         con.query(sql1, function(err, result0, fields) {
-                            res.render('check',{"result":result0});
+                            con.query(sql4, function(err, result1, fields) {
+                                res.render('admain',{"result1":result0,"result2":result1});
+                            });
                         });
                     }
                     else if(result[0].Id=="DBUser"){
@@ -65,7 +69,9 @@ var express = require('express')
                     }
                     else if(result[0].Id=="LevenAdmin"){
                         con.query(sql3, function(err, result2, fields) {
-                            res.render('check',{"result":result2});
+                            con.query(sql5, function(err, result3, fields) {
+                                res.render('admain',{"result1":result2,"result2":result3});
+                            });
                         });
                     }
                     else if(result[0].Id=="LevenUser"){
@@ -107,6 +113,46 @@ var express = require('express')
         delete req.session.user_upwd;
         delete req.session.user_uid;
         res.redirect('/');
+    });
+
+
+    app.post('/toAMain', function(req,res){
+        var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
+        var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+        var sql4 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "DB"';
+        var sql5 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "Leven"';
+        if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
+            con.query(sql1, function(err, result0, fields) {
+                con.query(sql4, function(err, result1, fields) {
+                    res.render('admain',{"result1":result0,"result2":result1});
+                });
+            });
+        }
+        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+            con.query(sql3, function(err, result2, fields) {
+                con.query(sql5, function(err, result3, fields) {
+                    res.render('admain',{"result1":result2,"result2":result3});
+                });
+            });
+        }
+    });
+
+
+
+    app.post('/toCheck', function(req,res){
+        if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
+            var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
+
+            con.query(sql1, function(err, result0, fields) {
+                res.render('check',{"result":result0});
+            });
+        }
+        else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
+            var sql0 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+            con.query(sql0, function(err, result1, fields) {
+                res.render('check',{"result":result1});
+            });
+        }
     });
 
     app.get('/sentdeled',function(req,res){
