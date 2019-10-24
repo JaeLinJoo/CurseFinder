@@ -14,7 +14,7 @@ var express = require('express')
         connectionLimit: 10,
         host: "localhost",
         user: "root",
-        password: "789521",
+        password: "jell0217",
         database: "db_kfc"
     });
     var A = 0;
@@ -59,10 +59,11 @@ var express = require('express')
                             });
                         });
                     }
+                    /*
                     else if(result[0].Id=="DBUser"){
                         res.render('write.html');
-                    }
-                    else if(result[0].Id=="DBMain"){
+                    }*/
+                    else if(result[0].Id=="DBUser"){
                         con.query(sql0, function(err, result1, fields) {
                             res.render('main',{"result":result1});
                         });
@@ -74,10 +75,11 @@ var express = require('express')
                             });
                         });
                     }
+                    /*
                     else if(result[0].Id=="LevenUser"){
                         res.render('write.html');
-                    }
-                    else if(result[0].Id=="LevenMain"){
+                    }*/
+                    else if(result[0].Id=="LevenUser"){
                         con.query(sql2, function(err, result3, fields) {
                             res.render('main',{"result":result3});
                         });
@@ -142,15 +144,20 @@ var express = require('express')
     app.post('/toCheck', function(req,res){
         if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
             var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
-
-            con.query(sql1, function(err, result0, fields) {
-                res.render('check',{"result":result0});
-            });
+            var sql4 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "DB"';
+             con.query(sql1, function(err, result0, fields) {
+                            con.query(sql4, function(err, result1, fields) {
+                                res.render('check',{"result1":result0,"result2":result1});
+                            });
+                        });
         }
         else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
-            var sql0 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
-            con.query(sql0, function(err, result1, fields) {
-                res.render('check',{"result":result1});
+            var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+            var sql5 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "Leven"';
+            con.query(sql3, function(err, result2, fields) {
+                con.query(sql5, function(err, result3, fields) {
+                    res.render('check',{"result1":result2,"result2":result3});
+                });
             });
         }
     });
@@ -159,15 +166,20 @@ var express = require('express')
         
         if(req.session.user_uid.includes("DB")||req.session.user_uid.includes("db")||req.session.user_uid.includes("Db")||req.session.user_uid.includes("dB")){
             var sql1 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "DB"';
-
+            var sql4 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "DB"';
             con.query(sql1, function(err, result0, fields) {
-                res.render('check',{"result":result0});
-            });
+                            con.query(sql4, function(err, result1, fields) {
+                                res.render('check',{"result1":result0,"result2":result1});
+                            });
+                        });
         }
         else if(req.session.user_uid.includes("Leven")||req.session.user_uid.includes("leven")){
-            var sql0 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
-            con.query(sql0, function(err, result1, fields) {
-                res.render('check',{"result":result1});
+            var sql3 = 'SELECT id, sentid, detecsent FROM Cursed WHERE sentid = "Leven"';
+            var sql5 = 'SELECT id, sentid, curedsent FROM Cured WHERE sentid = "Leven"';
+            con.query(sql3, function(err, result2, fields) {
+                con.query(sql5, function(err, result3, fields) {
+                    res.render('check',{"result1":result2,"result2":result3});
+                });
             });
         }
     });
@@ -179,23 +191,43 @@ var express = require('express')
         console.log(req.body.testName);
         if(typeof(req.body.id)=="string"){
             if(req.body.testName[0]==1){
+                if(req.body.istherecurse[0]==1){
+                sql = "DELETE FROM Cured WHERE id= "+req.body.id+";";
+                console.log(sql);
+                con.query(sql, function(err, result, fields){
+                console.log("메시지 삭제완료");
+                });
+            }
+                else if(req.body.istherecurse[0]==0){
                 sql = "DELETE FROM Cursed WHERE id= "+req.body.id+";";
                 console.log(sql);
                 con.query(sql, function(err, result, fields){
                 console.log("메시지 삭제완료");
                 });
             }
+            }
         }
         else{
             v=0;
             for(var i=0 ; i< req.body.testName.length; i++){
                 if(req.body.testName[i]==1){
+                    if(req.body.istherecurse[i]==1){
+                    sql = "DELETE FROM Cured WHERE id= "+req.body.id[i-v]+";";
+                    v += 1;
+                    console.log(sql);
+                    con.query(sql, function(err, result, fields) {
+                    console.log("메시지 삭제완료");
+                });
+            }
+                else if(req.body.istherecurse[i]==0){
                     sql = "DELETE FROM Cursed WHERE id= "+req.body.id[i-v]+";";
                     v += 1;
                     console.log(sql);
                     con.query(sql, function(err, result, fields) {
                     console.log("메시지 삭제완료");
                 });
+            }
+                    
                 }
             }
             

@@ -12,19 +12,35 @@ html
         table(align="center", style="width:80%;border:3px solid;border-collapse:collapse")
             tr(style="border:1px solid;border-collapse:collapse")
                 th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") CHECK
+                th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") 욕 존재유무
                 th(style="border:1px solid;border-collapse:collapse;font-size:20px;text-align:center;background-color:coral") ID
                 th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  판단 방법
                 th(style="border:1px solid;border-collapse:collapse;font-size:20px;padding-left:30px;text-align:center;background-color:coral")  필터링된 글 목록
             ul
-                 -for(i in result)
+                -for(i in result1)
                     tr(style="border:1px solid;border-collapse:collapse")  
                         td(style="text-align:center") 
                             input(id='checkinfo', type='checkbox', value=1, name='testName')
                             input(id='checkvalue', type='hidden', value=0, name='testName')
-                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result[i].id}
-                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result[i].sentid}
-                        td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result[i].detecsent}
-                        input(type="hidden", value=result[i].id, name="id")
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 O
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].id}
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result1[i].sentid}
+                        td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result1[i].detecsent}
+                        input(type="hidden", value=result1[i].id, name="id")
+                        input(type="hidden", value=0, name="istherecurse")
+        
+                -for(i in result2)
+                    tr(style="border:1px solid;border-collapse:collapse")  
+                        td(style="text-align:center") 
+                            input(id='checkinfo', type='checkbox', value=1, name='testName')
+                            input(id='checkvalue', type='hidden', value=0, name='testName')
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") 욕 존재 X
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].id}
+                        td(style="border:1px solid;border-collapse:collapse;text-align:center;width:80px") #{result2[i].sentid}
+                        td(style="border:1px solid;border-collapse:collapse;padding-left:15px") #{result2[i].curedsent}
+                        input(type="hidden", value=result2[i].id, name="id")
+                        input(type="hidden", value=1, name="istherecurse")
+                        
         br
         table(align="right", style="width:15%")
                 tr    
@@ -34,7 +50,7 @@ html
         tr
             td
                 form(method="post", action='/toAMain')
-                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 200px;", valign='right', value="관리자 메인")
+                    input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 200px;margin-right:30px", valign='right', value="관리자 메인")
             td
                 form(method="post", action='/toLogin')
                     input(type="submit", class="btn btn-lg btn-primary btn-block", style="width:10%; font-size:14px;padding:6px;position: absolute; right: 70px;", valign='right', value="로그아웃")
