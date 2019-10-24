@@ -254,7 +254,7 @@ def getNeighbors(trainingSet, testInstance, k):
     distances.sort(key=operator.itemgetter(1))#키가 아닌 값으로 sort
     neighbors = []
     for j in range(len(distances)):
-        if(distances[j][1]<=max(distss)):
+        if(distances[j][1]<=min(distss)):
             neighbors.append(distances[j][0])#Distance빼고 Neighbor만
     return neighbors
 
