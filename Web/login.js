@@ -17,7 +17,7 @@ var express = require('express')
         password: "789521",
         database: "db_kfc"
     });
-    var A = 0;
+    
 
     app.set('views', __dirname + '/views');
     app.set('view engine', 'ejs');
