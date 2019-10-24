@@ -11,6 +11,7 @@
     var d = new Date();
     </script>
     <style>
+        @import url(http://fonts.googleapis.com/earlyaccess/hanna.css); 
         p{
             color:floralwhite;
             font-size: 50px;
@@ -39,12 +40,13 @@
             background-position: 70% 10px;
             background-blend-mode: darken;*/
             height: 50px;
-            width: 60%;
+            width: 900px;
             background: rgb(190, 213, 255); /* default button background color */
             display: inline-block; /* set to block or inline-block */
             padding: 10px 15px;
             margin: 10px; /* for demo layout */
-            font: normal 16px 'Lato', sans-serif;  /* use google custom font "Lato" */
+            font: normal 40px 'Lato', sans-serif;  /* use google custom font "Lato" */
+            
             border-radius: 18px;
             position: relative;
             outline: none;
@@ -57,8 +59,8 @@
 
         .dualcolorbutton{
         /*border: 1px solid navy;*/
-        height: 50px;
-        width: 200px;
+        height: 70px;
+        width: 250px;
         background: white; /* default button background color */
         display: inline-block; /* set to block or inline-block */
         padding: 10px 15px;
@@ -110,38 +112,47 @@
 </head>
 <body>
     <div class="a">
-    <p>JipJung Community</p>
+    <p style = "font-family:hanna;">JipJung Community</p>
     </div>
     <br>
-    <form action="/toMain" accept-charset="utf-8" method="post">
-        <table align="right" style="width:25%">
-            <td >
-            <input
-            class="dualcolorbutton"
-            type="submit" 
-            value="메인으로" 
-            style = "font-size:16px;padding:5px;padding-left:10px;padding-right:10px;font-family:hanna;">
-            </td>
-            
-        </table>
-    </form>
+    
     <br>
-    <h1 >글 작성</h1>
+    
     <form action="write" accept-charset="utf-8" method="post">
         <br>
         <table align="Center">
             <tr>
-                <td><textarea  rows="30", cols="150" id="msg" name="msg" 
+                <td>
+                    <h1 style="font-family:hanna;">글 작성</h1>
+                </td>
+                <td>
+                        <form action="/toMain" accept-charset="utf-8" method="post">
+                            <table align="right" style="width:25%">
+                                <td >
+                                <input
+                                class="dualcolorbutton"
+                                type="submit" 
+                                value="메인으로" 
+                                style = "font-size:25px;padding:5px;padding-left:10px;padding-right:10px;font-family:hanna;">
+                                </td>
+                                
+                            </table>
+                        </form>
+                </td>
+            </tr>
+            
+            <tr>
+                <td colspan="2"><textarea  rows="30", cols="150" id="msg" name="msg" 
                               placeholder="글을 작성하세요. (비속어가 있을 경우 글은 게시되지 않을 수 있습니다)" 
                               style = "font-size:16px;padding:5px;resize: none;"></textarea></td>
                 <td><br><br></td>
             </tr>
-            <td align="right">
+            <td align="right" colspan="2">
                 <input
                 class="dualcolorbutton" 
                 type="submit" 
                 value="올리기" 
-                style = "font-size:16px;padding:5px;margin:20px;padding-left:10px;padding-right:10px;font-family:hanna;">
+                style = "font-size:25px;padding:5px;margin:20px;padding-left:10px;padding-right:10px;font-family:hanna;">
             </td>
         </table>
     </form>
